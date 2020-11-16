@@ -18,6 +18,7 @@ headers = {"Accept-Language": "en-US, en;q=0.5"}
 # initianlize empty lists to store data
 titles = []
 years = []
+age_ratings = []
 time = []
 genres = []
 imdb_ratings = []
@@ -52,6 +53,10 @@ for page in pages:
 		# Grabs the year each movie
 		year = container.h3.find('span', class_='lister-item-year').text
 		years.append(year)
+
+		# Grbas the rating of each movie
+		age = container.find('span', class_='certificate').text if container.p.find('span', class_='certificate') else 'N/A'
+		age_ratings.append(age)
 
 		# Grabs the length of each movie
 		length = container.find('span', class_='runtime').text if container.p.find('span', class_='runtime') else 'N/A'
@@ -88,6 +93,7 @@ for page in pages:
 movies = pd.DataFrame({
 	'movie': titles,
 	'year': years,
+	'rating': age_ratings,
 	'timeMin': time,
 	'genre': genres,
 	'imdb': imdb_ratings,
